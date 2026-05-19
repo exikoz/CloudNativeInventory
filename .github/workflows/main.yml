@@ -50,15 +50,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Login to Azure
-        uses: azure/login@v2
+        uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy to Azure Container Apps
-        uses: azure/cli@v2
-        with:
-          inlineScript: |
-            az containerapp update \
-              --name ${{ secrets.AZURE_CONTAINER_APP }} \
-              --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-              --image acrcloudnativehh.azurecr.io/inventory-api:${{ github.sha }}
+        run: |
+          az containerapp update \
+            --name aca-inventory-api \
+            --resource-group rg-cloudnative-inventory \
+            --image acrcloudnativehh.azurecr.io/inventory-api:${{ github.sha }}
