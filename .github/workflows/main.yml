@@ -18,13 +18,13 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore CloudNativeInventory.sln
+        run: dotnet restore CloudNativeInventory.slnx
 
       - name: Build project
-        run: dotnet build CloudNativeInventory.sln --no-restore -c Release
+        run: dotnet build CloudNativeInventory.slnx --no-restore -c Release
 
       - name: Run tests
-        run: dotnet test CloudNativeInventory.sln --no-build -c Release
+        run: dotnet test CloudNativeInventory.slnx --no-build -c Release
 
   build-and-push-docker:
     needs: build-and-test
