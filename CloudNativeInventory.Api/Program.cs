@@ -1,3 +1,4 @@
+using Azure.Identity;
 using CloudNativeInventory.Api.Data;
 using CloudNativeInventory.Api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+
+// Enable Key Vault integration for production environments
+if (builder.Environment.IsProduction())
+{
+    var keyVaultUrl = new Uri(builder.Configuration["KeyVaultUrl"]!);
+    builder.Configuration.AddAzureKeyVault(keyVaultUrl, new DefaultAzureCredential());
+}
 
 builder.Services.AddDbContext<InventoryDbContext>(options =>
     options.UseInMemoryDatabase("InventoryDb"));
