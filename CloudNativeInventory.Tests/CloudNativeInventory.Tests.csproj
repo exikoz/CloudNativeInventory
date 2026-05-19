@@ -19,4 +19,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CloudNativeInventory.Api\CloudNativeInventory.Api.csproj" />
+  </ItemGroup>
+
 </Project>
